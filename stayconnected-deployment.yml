@@ -29,7 +29,7 @@ spec:
             containerPort: 8080
         env:
           - name: DB_URL
-            value: jdbc:postgresql://192.168.1.42:5432/docker
+            value: jdbc:postgresql://postgresql:5432/docker
           - name: DB_DRIVER
             value: org.postgresql.Driver
           - name: DB_USER
