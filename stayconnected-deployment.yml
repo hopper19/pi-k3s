@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stayconnected
+  namespace: stayconnected
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stayconnected
+  template:
+    metadata:
+      labels:
+        app: stayconnected
+    spec:
+      containers:
+      - name: stayconnected
+        image: hopper19/stayconnected-aarch64
+        # imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "768Mi"
+            cpu: "500m"
+          limits:
+            memory: "768Mi"
+            cpu: "500m"
+        ports:
+          - name: http
+            containerPort: 8080
+        env:
+          - name: DB_URL
+            value: jdbc:postgresql://192.168.1.42:5432/docker
+          - name: DB_DRIVER
+            value: org.postgresql.Driver
+          - name: DB_USER
+            value: admin
+          - name: DB_PASSWORD
+            value: admin123
