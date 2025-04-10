@@ -36,13 +36,17 @@ spec:
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata # mount in a sub directory to avoid error
             - name: POSTGRES_USER
-              value: "admin"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: "admin123"
-            - name: POSTGRES_DB
-              value: "mydb"
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data/ 
+            - mountPath: /var/lib/postgresql/data/
               name: postgresql-storage
             - mountPath: /docker-entrypoint-initdb.d
               name: init-script
